@@ -19,14 +19,15 @@
     <td th:text="${warehouse.location}"></td>
 
     <td>
-      <!--      <a th:href="@{'/products/edit/' + ${product.id}}">수정</a>-->
-      <!--      <form th:action="@{'/products/delete/' + ${product.id}}" method="post" style="display:inline;">-->
-      <!--        <button type="submit">삭제</button>-->
-      <!--      </form>-->
+            <a th:href="@{'/warehouses/edit/' + ${warehouse.id}}">수정</a>
+            <form th:action="@{'/warehouses/delete/' + ${warehouse.id}}" method="post" style="display:inline;">
+              <button type="submit">삭제</button>
+            </form>
     </td>
   </tr>
   </tbody>
 </table>
+<a th:href="@{/warehouses/create}">생성</a>
 <a th:href="@{/products}">제품</a>
 <a th:href="@{/warehouses}">창고</a>
 <p></p>

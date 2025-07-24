@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h1>창고 정보 수정</h1>
+
+    <!--
+        th:action="@{/warehouses/{id}(id=${warehouseId})}" : 폼 제출 시 PUT 요청을 보낼 URL.
+                                                         warehouseId는 컨트롤러에서 모델에 추가한 값입니다.
+        th:object="${warehouseDto}" : 컨트롤러에서 모델에 추가한 "warehouseDto" 객체와 폼 필드를 바인딩합니다.
+        method="post" : HTML 폼은 기본적으로 GET/POST만 지원하므로 POST로 설정합니다.
+    -->
+    <form th:action="@{/warehouses/{id}(id=${warehouseId})}" th:object="${warehouseDto}" method="post">
+        <!--
+            _method=put 숨김 필드:
+            이 필드가 HiddenHttpMethodFilter에 의해 감지되어 실제 HTTP 메서드를 PUT으로 변경합니다.
+            이렇게 함으로써 @PutMapping("/warehouses/{id}") 메서드가 호출될 수 있습니다.
+        -->
+        <input type="hidden" name="_method" value="put" />
+
+        <div class="form-group">
+            <label for="name">창고 이름:</label>
+            <!--
+                th:field="*{name}" : warehouseDto 객체의 'name' 필드와 이 input 필드를 바인딩합니다.
+                                    기존 값이 자동으로 채워집니다.
+            -->
+            <input type="text" id="name" th:field="*{name}" required
+                   placeholder="창고 이름을 입력하세요">
+        </div>
+
+        <div class="form-group">
+            <label for="location">가격:</label>
+            <!--
+                th:field="*{price}" : warehouseDto 객체의 'price' 필드와 이 input 필드를 바인딩합니다.
+                                    기존 값이 자동으로 채워집니다.
+            -->
+            <input type="text" id="location" th:field="*{location}" required
+                   placeholder="위치를 입력하세요 (예: 123.45)">
+        </div>
+
+        <div>
+            <button type="submit">창고 수정 완료</button>
+        </div>
+    </form>
+
+    <a th:href="@{/warehouses/{id}(id=${warehouseId})}" class="back-link">창고 상세 보기로 돌아가기</a>
+    <a th:href="@{/warehouses}" class="back-link">창고 목록으로 돌아가기</a>
+</div>
+</body>
+</html>
