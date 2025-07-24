@@ -1,0 +1,79 @@
+## 미션 5. 📦 재고 관리 시스템
+
+- **서비스**: 제품과 창고를 등록하고 각 창고에 있는 재고 현황을 관리
+- **주요 기능**: 제품/창고/재고 CRUD, 재고 대시보드
+- **학습 포인트**:
+    - 복합 JOIN을 통한 다중 테이블 조회
+    - 제품 ↔ 창고 ↔ 재고 간 관계 설정
+    - 수량 갱신, 창고 재고 이동 처리
+    - 금액(`NUMERIC`) 데이터 처리 및 형식 출력
+
+### 구현해야 하는 기능
+
+- **제품 목록 조회** `GET /products`
+- **창고 목록 조회** `GET /warehouses`
+- **제품 생성/수정/삭제** `POST /products` / `POST /products/{id}/edit` / `POST /products/{id}/delete`
+- **창고 생성/수정/삭제** `POST /warehouses` / `POST /warehouses/{id}/edit` / `POST /warehouses/{id}/delete`
+- **재고 현황 조회** `GET /stocks` (제품별·창고별 수량)
+- **재고 추가/수정/삭제** `POST /stocks/add` / `POST /stocks/{id}/edit` / `POST /stocks/{id}/delete`
+
+### 전체 SQL 쿼리
+
+```sql
+-- 1) 테이블 생성
+CREATE TABLE products (
+  id    SERIAL PRIMARY KEY,
+  name  VARCHAR(200) NOT NULL,
+  price NUMERIC(10,2) NOT NULL
+);
+
+CREATE TABLE warehouses (
+  id       SERIAL PRIMARY KEY,
+  name     VARCHAR(100) NOT NULL,
+  location VARCHAR(200)
+);
+
+CREATE TABLE stocks (
+  id            SERIAL PRIMARY KEY,
+  product_id    INT NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+  warehouse_id  INT NOT NULL REFERENCES warehouses(id) ON DELETE CASCADE,
+  quantity      INT NOT NULL DEFAULT 0
+);
+
+-- 2) 제품·창고별 재고 요약 뷰
+CREATE VIEW product_stock_summary AS
+SELECT
+  p.id            AS product_id,
+  p.name          AS product_name,
+  w.id            AS warehouse_id,
+  w.name          AS warehouse_name,
+  s.quantity
+FROM stocks s
+JOIN products p   ON p.id = s.product_id
+JOIN warehouses w ON w.id = s.warehouse_id
+ORDER BY p.id, w.id;
+
+-- 3) CRUD: Products
+INSERT INTO products (name, price)
+  VALUES ('노트북', 1200000);
+SELECT * FROM products;
+SELECT * FROM products WHERE id = :id;
+UPDATE products SET price = 1100000 WHERE id = :id;
+DELETE FROM products WHERE id = :id;
+
+-- 4) CRUD: Warehouses
+INSERT INTO warehouses (name, location)
+  VALUES ('본사 창고', '서울 강남구');
+SELECT * FROM warehouses;
+SELECT * FROM warehouses WHERE id = :id;
+UPDATE warehouses SET location = '서울 마포구' WHERE id = :id;
+DELETE FROM warehouses WHERE id = :id;
+
+-- 5) CRUD: Stocks
+INSERT INTO stocks (product_id, warehouse_id, quantity)
+  VALUES (1, 1, 50);
+SELECT * FROM stocks;
+SELECT * FROM stocks WHERE id = :id;
+UPDATE stocks SET quantity = 75 WHERE id = :id;
+DELETE FROM stocks WHERE id = :id;
+```
