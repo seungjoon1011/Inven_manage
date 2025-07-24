@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+  <h1>새 상품 등록</h1>
+
+  <!--
+      th:action="@{/products}" : 폼 제출 시 POST 요청을 보낼 URL.
+                               일반적으로 상품 생성은 /products (POST)로 매핑됩니다.
+                               컨트롤러에 @PostMapping("/products") 메서드가 필요합니다.
+      th:object="${productDto}" : 컨트롤러에서 모델에 추가한 "productDto" 객체와 폼 필드를 바인딩합니다.
+      method="post" : HTTP POST 메서드를 사용합니다.
+  -->
+  <form th:action="@{/products}" th:object="${productDto}" method="post">
+    <div class="form-group">
+      <label for="name">상품 이름:</label>
+      <!--
+          th:field="*{name}" : productDto 객체의 'name' 필드와 이 input 필드를 바인딩합니다.
+                              Thymeleaf가 자동으로 id="name", name="name" 속성을 생성합니다.
+          required : HTML5 유효성 검사 (필수 입력)
+      -->
+      <input type="text" id="name" th:field="*{name}" required
+             placeholder="상품 이름을 입력하세요">
+    </div>
+
+    <div class="form-group">
+      <label for="price">가격:</label>
+      <!--
+          th:field="*{price}" : productDto 객체의 'price' 필드와 이 input 필드를 바인딩합니다.
+                              BigDecimal 타입이므로 <input type="number">가 적합합니다.
+          step="0.01" : 소수점 두 자리까지 입력 가능하도록 설정 (BigDecimal에 유용)
+          required : HTML5 유효성 검사 (필수 입력)
+      -->
+      <input type="number" id="price" th:field="*{price}" required step="0.01"
+             placeholder="가격을 입력하세요 (예: 123.45)">
+    </div>
+
+    <div>
+      <button type="submit">상품 등록</button>
+    </div>
+  </form>
+
+  <a th:href="@{/products}" class="back-link">상품 목록으로 돌아가기</a>
+</div>
+</body>
+</html>

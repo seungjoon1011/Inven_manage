@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>warehouse</title>
+</head>
+<body>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>이름</th>
+    <th>위치</th>
+  </tr>
+  </thead>
+  <tbody th:each="warehouse: ${warehouses}">
+  <tr>
+    <td th:text="${warehouse.id}"></td>
+    <td th:text="${warehouse.name}"></td>
+    <td th:text="${warehouse.location}"></td>
+
+    <td>
+      <!--      <a th:href="@{'/products/edit/' + ${product.id}}">수정</a>-->
+      <!--      <form th:action="@{'/products/delete/' + ${product.id}}" method="post" style="display:inline;">-->
+      <!--        <button type="submit">삭제</button>-->
+      <!--      </form>-->
+    </td>
+  </tr>
+  </tbody>
+</table>
+<a th:href="@{/products}">제품</a>
+<a th:href="@{/warehouses}">창고</a>
+<p></p>
+</body>
+</html>
