@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>stock</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
+
+</head>
+<body>
+<div class="container">
+
+    <h1>재고</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>재고ID</th>
+            <th>상품Id</th>
+            <th>창고Id</th>
+            <th>재고 수</th>
+        </tr>
+        </thead>
+        <tbody th:each="stock: ${stocks}">
+        <tr>
+            <td th:text="${stock.id}"></td>
+            <td th:text="${stock.product.id}"></td>
+            <td th:text="${stock.warehouse.id}"></td>
+            <td th:text="${stock.quantity}"></td>
+            <td>
+                <a th:href="@{'/stocks/edit/' + ${stock.id}}">수정</a>
+                <form th:action="@{'/stocks/delete/' + ${stock.id}}" method="post" style="display:inline;">
+                    <button type="submit">삭제</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/stocks/create}">생성</a>
+    <a th:href="@{/products}">제품</a>
+    <a th:href="@{/warehouses}">창고</a>
+    <a th:href="@{/}">메인</a>
+
+    <p></p>
+</div>
+</body>
+</html>

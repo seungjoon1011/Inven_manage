@@ -2,34 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>warehouse</title>
+  <link rel="stylesheet" th:href="@{/styles.css}"/>
+
 </head>
 <body>
-<table>
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>이름</th>
-    <th>위치</th>
-  </tr>
-  </thead>
-  <tbody th:each="warehouse: ${warehouses}">
-  <tr>
-    <td th:text="${warehouse.id}"></td>
-    <td th:text="${warehouse.name}"></td>
-    <td th:text="${warehouse.location}"></td>
+<div class="container">
 
-    <td>
-            <a th:href="@{'/warehouses/edit/' + ${warehouse.id}}">수정</a>
-            <form th:action="@{'/warehouses/delete/' + ${warehouse.id}}" method="post" style="display:inline;">
-              <button type="submit">삭제</button>
-            </form>
-    </td>
-  </tr>
-  </tbody>
-</table>
-<a th:href="@{/warehouses/create}">생성</a>
-<a th:href="@{/products}">제품</a>
-<a th:href="@{/warehouses}">창고</a>
-<p></p>
+  <h1>창고</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>이름</th>
+      <th>위치</th>
+    </tr>
+    </thead>
+    <tbody th:each="warehouse: ${warehouses}">
+    <tr>
+      <td th:text="${warehouse.id}"></td>
+      <td th:text="${warehouse.name}"></td>
+      <td th:text="${warehouse.location}"></td>
+
+      <td>
+              <a th:href="@{'/warehouses/edit/' + ${warehouse.id}}">수정</a>
+              <form th:action="@{'/warehouses/delete/' + ${warehouse.id}}" method="post" style="display:inline;">
+                <button type="submit">삭제</button>
+              </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <a th:href="@{/warehouses/create}">생성</a>
+  <a th:href="@{/products}">제품</a>
+  <a th:href="@{/stocks}">재고</a>
+  <a th:href="@{/}">메인</a>
+
+  <p></p>
+</div>
 </body>
 </html>

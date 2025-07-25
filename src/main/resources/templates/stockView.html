@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>상품 재고 요약</title>
+  <link rel="stylesheet" th:href="@{/styles.css}"/>
+
+</head>
+<body>
+<div class="container">
+
+  <h1>상품 재고 요약</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>상품ID</th>
+      <th>상품명</th>
+      <th>창고ID</th>
+      <th>창고명</th>
+      <th>재고 수</th>
+    </tr>
+    </thead>
+    <tbody th:each="summary: ${summaries}">
+    <tr>
+      <td th:text="${summary.productId}"></td>
+      <td th:text="${summary.productName}"></td>
+      <td th:text="${summary.warehouseId}"></td>
+      <td th:text="${summary.warehouseName}"></td>
+      <td th:text="${summary.quantity}"></td>
+    </tr>
+    </tbody>
+  </table>
+  <a th:href="@{/products}">제품</a>
+  <a th:href="@{/warehouses}">창고</a>
+  <a th:href="@{/stocks}">재고</a>
+
+  <p></p>
+</div>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.example.Inven_manage.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class Warehouse {
     private Long id;
 
     @Column
+    @NotNull
     private String name;
 
     @Column

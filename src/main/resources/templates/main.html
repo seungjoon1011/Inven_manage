@@ -2,10 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Hello Thymeleaf</title>
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
 </head>
 <body>
 <a th:href="@{/products}">제품</a>
 <a th:href="@{/warehouses}">창고</a>
+<a th:href="@{/stocks}">재고</a>
+<a th:href="@{/stocks/view}">재고 보기</a>
+
 <p></p>
 </body>
 </html>

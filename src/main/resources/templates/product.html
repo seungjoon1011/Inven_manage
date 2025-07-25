@@ -2,35 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>product</title>
+  <link rel="stylesheet" th:href="@{/styles.css}"/>
+
 </head>
 <body>
-<table>
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>이름</th>
-    <th>가격</th>
-  </tr>
-  </thead>
-  <tbody th:each="product: ${products}">
-  <tr>
-    <td th:text="${product.id}"></td>
-    <td th:text="${product.name}"></td>
-    <td th:text="${product.price}"></td>
+<div class="container">
+  <h1>상품</h1>
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>이름</th>
+      <th>가격</th>
+    </tr>
+    </thead>
+    <tbody th:each="product: ${products}">
+    <tr>
+      <td th:text="${product.id}"></td>
+      <td th:text="${product.name}"></td>
+      <td th:text="${product.price}"></td>
 
-    <td>
+      <td>
 
-      <a th:href="@{'/products/edit/' + ${product.id}}">수정</a>
-      <form th:action="@{'/products/delete/' + ${product.id}}" method="post" style="display:inline;">
-        <button type="submit">삭제</button>
-      </form>
-    </td>
-  </tr>
-  </tbody>
-</table>
-<a th:href="@{/products/create}">생성</a>
-<a th:href="@{/products}">제품</a>
-<a th:href="@{/warehouses}">창고</a>
-<p></p>
+        <a th:href="@{'/products/edit/' + ${product.id}}">수정</a>
+        <form th:action="@{'/products/delete/' + ${product.id}}" method="post" style="display:inline;">
+          <button type="submit">삭제</button>
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <a th:href="@{/products/create}">생성</a>
+  <a th:href="@{/warehouses}">창고</a>
+  <a th:href="@{/stocks}">재고</a>
+  <a th:href="@{/}">메인</a>
+
+  <p></p>
+</div>
 </body>
 </html>
